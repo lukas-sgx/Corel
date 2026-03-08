@@ -23,6 +23,13 @@ Corel follows a strictly autonomous **Scan-Infect-Replicate** lifecycle:
 * **Modular Propagators**: Extensible interface system to add new movement vectors (SSH, Kube-API, Docker-Socket).
 * **Stealth focused**: Minimal footprint, binary stripping, and low-latency scanning.
 
+## ⚠️ Disclaimer
+
+This project is **strictly for educational purposes** and security research only. It is designed to help understand lateral movement techniques and containerized environment security.
+
+**Any illegal or malicious use is strictly prohibited.** The author(s) take no responsibility for any misuse of this tool. Always obtain proper authorization before testing on any system you do not own.
+
+
 ## 👤 Credits
 
 Developped by **@lukas_sgx**.  
