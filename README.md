@@ -2,7 +2,7 @@
 
 **Corel** is a minimalist, autonomous lateral movement agent designed for high-performance discovery and self-replication within containerized environments. 
 
-Unlike traditional static relays, **Corel** is built to "hop" between nodes, leveraging local environment primitives to replicate its core binary and establish a distributed, decentralized presence across **Kubernetes** and **Linux** or **Windows** clusters.
+Unlike traditional static relays, **Corel** is built to "hop" between nodes, leveraging local environment primitives to replicate its core binary and establish a distributed, decentralized presence across **Kubernetes** and (**Linux** | **Windows** | **MacOs**) clusters.
 
 ---
 
