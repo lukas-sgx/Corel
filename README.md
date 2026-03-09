@@ -32,7 +32,7 @@ This project is **strictly for educational purposes** and security research only
 
 ## 👤 Credits
 
-Developped by **@lukas_sgx**.  
+Developped by **@lukas-sgx**.  
 Thank's community for feedbacks.
 
 ## 📄 Licence
