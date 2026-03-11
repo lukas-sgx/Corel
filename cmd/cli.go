@@ -15,32 +15,15 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func init_templates() {
-	rootCmd.SetHelpCommand(&cobra.Command{Use: "no-help", Hidden: true})
-	rootCmd.SetUsageTemplate(`Usage:
-  {{.UseLine}}{{if .HasAvailableSubCommands}}
-  {{.CommandPath}} [module]{{end}}
-
-Available Modules:{{range .Commands}}{{if (or .IsAvailableCommand (eq .Name "help"))}}{{if .IsAvailableCommand}}
-  {{rpad .Name .NamePadding}} {{.Short}}{{end}}{{end}}{{end}}{{if .HasAvailableLocalFlags}}
-
-Flags:
-{{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}
-
-Use "{{.CommandPath}} [command] --help" for more information about a command.
-`)
-
-	rootCmd.Version = "0.1.0"
-	rootCmd.SetVersionTemplate("Corel version {{.Version}}\n")
-}
-
 func Cli() error {
-	init_templates()
+	Init_templates(rootCmd)
+
 	rootCmd.AddGroup(&cobra.Group{
 		ID:    "modules",
 		Title: "Available Modules:",
 	})
 	rootCmd.AddCommand(client.ClientCmd)
 	rootCmd.AddCommand(server.ServerCmd)
+
 	return rootCmd.Execute()
 }
