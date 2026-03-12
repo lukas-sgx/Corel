@@ -28,14 +28,15 @@ var ClientCmd = &cobra.Command{
 }
 
 func clientConnect(cmd *cobra.Command, args []string) {
+
 	agent := AgentInfo{
 		remoteAddr: remoteAddr,
 		remotePort: remotePort,
 		meshSync: meshSync,
-		identity: "beacon-xzoffe12-dde",
+		identity: generateIdentity(),
 		version: version,
 	}
-	InitHeader(agent)
+	initHeader(agent)
 }
 
 func InitFlags(versionCli string) {
