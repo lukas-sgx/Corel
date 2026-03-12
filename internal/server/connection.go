@@ -13,11 +13,6 @@ import (
 	"github.com/lukas-sgx/corel/pkg/utils"
 )
 
-type Auth struct {
-	Identity string
-}
-
-
 func readData(data *bufio.Reader, client net.Conn) (string, error) {
 	for {
 		line, err := data.ReadString('\n')
@@ -38,7 +33,7 @@ func readData(data *bufio.Reader, client net.Conn) (string, error) {
 
 func handleConnection(client net.Conn) {
 	var data = bufio.NewReader(client);
-	var dataAuth Auth
+	var dataAuth utils.Auth
 
 	fmt.Println(utils.SetBlue("[INFO]") + " New agent handshake " + client.RemoteAddr().String())
 	defer client.Close()

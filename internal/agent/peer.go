@@ -18,10 +18,6 @@ type Agent struct {
 	Identity   string
 }
 
-type Auth struct {
-	Identity string
-}
-
 func keepAlive(tcp net.Conn) {
 	ticker := time.NewTicker(600 * time.Second)
 	defer ticker.Stop()
@@ -35,7 +31,7 @@ func keepAlive(tcp net.Conn) {
 }
 
 func initDataSend(tcp net.Conn, data Agent) {
-	dataAuth := Auth{
+	dataAuth := utils.Auth{
 		Identity: data.Identity,
 	}
 
