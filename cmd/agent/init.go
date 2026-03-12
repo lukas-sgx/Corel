@@ -3,12 +3,21 @@ package agent
 import (
 	"github.com/lukas-sgx/corel/pkg/utils"
 	"fmt"
+    "os"
+    "math/rand"
 )
 
-func InitHeader(agent AgentInfo) {
+func generateIdentity() string {
+    uid, _ := os.Hostname()
+    id := rand.Uint32()
+    
+    return fmt.Sprintf("%s-%d", uid, id)
+}
+
+func initHeader(agent AgentInfo) {
 	var header =  utils.ClearScreen + utils.Red +
 `     .
-    / \      ` + utils.Blue + `[ COREL :: AUTONOMOUS AGENT ]` + utils.Red + `
+    / \      ` + utils.Blue + utils.Bold + `[ COREL :: AUTONOMOUS AGENT ]` + utils.Reset + utils.Red + `
    /   \     ` + utils.Blue + `[ VERSION : `+ agent.version +`           ]` + utils.Red + `
   /_____\    ` + utils.Blue + `[ STATUS  : INITIALIZING    ]` + utils.Red + `
   \     /
