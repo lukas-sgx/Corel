@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net"
+
+	"github.com/lukas-sgx/corel/pkg/utils"
 )
 
 type Agent struct {
@@ -16,6 +18,9 @@ type Agent struct {
 
 func launchHandshake(tcp net.Conn) {
 	defer tcp.Close()
+	for {
+		tcp.Write([]byte("KEEPALIVE"))
+	}
 }
 
 func Peer(agent Agent) {
@@ -24,5 +29,7 @@ func Peer(agent Agent) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println()
+	fmt.Println(utils.SetBlue("[INFO]") + " Launch Hanshake on server...")
 	launchHandshake(tcpConn)
 }
