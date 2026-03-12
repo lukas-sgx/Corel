@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/lukas-sgx/corel/cmd/client"
+	"github.com/lukas-sgx/corel/cmd/agent"
 	"github.com/lukas-sgx/corel/cmd/server"
 	"github.com/spf13/cobra"
 )
@@ -22,7 +22,9 @@ func Cli() error {
 		ID:    "modules",
 		Title: "Available Modules:",
 	})
-	rootCmd.AddCommand(client.ClientCmd)
+	agent.InitFlags(rootCmd.Version)
+	server.InitFlags()
+	rootCmd.AddCommand(agent.ClientCmd)
 	rootCmd.AddCommand(server.ServerCmd)
 
 	return rootCmd.Execute()

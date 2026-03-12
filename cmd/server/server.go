@@ -37,7 +37,7 @@ func serverRun(cmd *cobra.Command, args []string) {
 	waitConnection(tcpListen)
 }
 
-func init() {
+func InitFlags() {
 	ServerCmd.Flags().StringVarP(&listenAddr, "LHOST", "l", "0.0.0.0", "Address to listen on")
 	ServerCmd.Flags().IntVarP(&port, "LPORT", "p", 8080, "Port to listen on")
 	ServerCmd.Flags().BoolVarP(&meshSync, "MSYNC", "m", true, "Use mesh synchronization")

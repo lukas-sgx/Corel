@@ -7,9 +7,9 @@ import (
 var Template = `Usage:
   {{.UseLine}}{{if .HasAvailableSubCommands}}
   {{.CommandPath}} [module]{{end}}
-
+{{if .HasAvailableSubCommands}}
 Available Modules:{{range .Commands}}{{if (or .IsAvailableCommand (eq .Name "help"))}}{{if .IsAvailableCommand}}
-  {{rpad .Name .NamePadding}} {{.Short}}{{end}}{{end}}{{end}}{{if .HasAvailableLocalFlags}}
+  {{rpad .Name .NamePadding}} {{.Short}}{{end}}{{end}}{{end}}{{end}}{{if .HasAvailableLocalFlags}}
 
 Flags:
 {{.LocalFlags.FlagUsages | trimTrailingWhitespaces}}{{end}}
