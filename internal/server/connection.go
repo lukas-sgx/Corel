@@ -11,7 +11,7 @@ func handleConnection(client net.Conn) {
 	defer client.Close()
 }
 
-func waitConnection(tcp net.Listener) {
+func WaitConnection(tcp net.Listener) {
 	for {
 		client, err := tcp.Accept()
 		

@@ -6,6 +6,7 @@ import (
 	"net"
 
 	"github.com/spf13/cobra"
+	"github.com/lukas-sgx/corel/internal/server"
 )
 
 var (
@@ -34,7 +35,7 @@ func serverRun(cmd *cobra.Command, args []string) {
 	isMeshSync(meshSync)
 	listenerInfo(listenAddr, port)
 	
-	waitConnection(tcpListen)
+	server.WaitConnection(tcpListen)
 }
 
 func InitFlags() {

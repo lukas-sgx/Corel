@@ -2,15 +2,8 @@ package agent
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/lukas-sgx/corel/internal/agent"
 )
-
-type AgentInfo struct {
-	remoteAddr string
-	remotePort int
-	meshSync bool
-	version string
-	identity string
-}
 
 var (
 	remoteAddr string
@@ -29,14 +22,16 @@ var ClientCmd = &cobra.Command{
 
 func clientConnect(cmd *cobra.Command, args []string) {
 
-	agent := AgentInfo{
-		remoteAddr: remoteAddr,
-		remotePort: remotePort,
-		meshSync: meshSync,
-		identity: generateIdentity(),
-		version: version,
+	agentInfo := agent.Agent{
+		RemoteAddr: remoteAddr,
+		RemotePort: remotePort,
+		MeshSync: meshSync,
+		Version: version,
+		Identity: generateIdentity(), 
 	}
-	initHeader(agent)
+
+	initHeader(agentInfo)
+	agent.Peer(agentInfo)
 }
 
 func InitFlags(versionCli string) {
