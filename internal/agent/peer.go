@@ -16,6 +16,7 @@ type Agent struct {
 	MeshSync   bool
 	Version    string
 	Identity   string
+	Secrets    bool
 }
 
 func keepAlive(tcp net.Conn) {
@@ -57,7 +58,9 @@ func Peer(agent Agent) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println()
-	fmt.Println(utils.SetBlue("[INFO]") + " Launch Hanshake on server...")
+	if agent.Secrets == false {
+		fmt.Println()
+		fmt.Println(utils.SetBlue("[INFO]") + " Launch Hanshake on server...")
+	}
 	launchHandshake(tcpConn, agent)
 }
