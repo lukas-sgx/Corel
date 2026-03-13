@@ -10,6 +10,7 @@ var (
 	remotePort int
 	meshSync bool
 	version string
+	secrets bool
 )
 
 var ClientCmd = &cobra.Command{
@@ -27,10 +28,13 @@ func clientConnect(cmd *cobra.Command, args []string) {
 		RemotePort: remotePort,
 		MeshSync: meshSync,
 		Version: version,
-		Identity: generateIdentity(), 
+		Identity: generateIdentity(),
+		Secrets: secrets,
 	}
 
-	initHeader(agentInfo)
+	if secrets == false {
+		initHeader(agentInfo)
+	}
 	agent.Peer(agentInfo)
 }
 
@@ -39,4 +43,5 @@ func InitFlags(versionCli string) {
 	ClientCmd.Flags().StringVarP(&remoteAddr, "RHOST", "i", "127.0.0.1", "Ip address server")
 	ClientCmd.Flags().IntVarP(&remotePort, "RPORT", "p", 8080, "Ip port server")
 	ClientCmd.Flags().BoolVarP(&meshSync, "MSYNC", "m", true, "Use mesh sync")
+	ClientCmd.Flags().BoolVarP(&secrets, "SECRETS", "s", false, "Use secrets")
 }
