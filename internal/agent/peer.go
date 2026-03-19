@@ -47,7 +47,11 @@ func initDataSend(tcp net.Conn, data Agent) {
 }
 
 func launchHandshake(tcp net.Conn, data Agent) {
-	defer tcp.Close()
+	defer func() {
+		if err := tcp.Close(); err != nil {
+			log.Printf(utils.SetRed("[ERROR]") + " failed to close connection: %v", err)
+		}
+	}()
 	initDataSend(tcp, data)
 	keepAlive(tcp)
 }
@@ -58,7 +62,7 @@ func Peer(agent Agent) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if agent.Secrets == false {
+	if !agent.Secrets {
 		fmt.Println()
 		fmt.Println(utils.SetBlue("[INFO]") + " Launch Hanshake on server...")
 	}

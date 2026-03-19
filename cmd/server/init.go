@@ -19,7 +19,7 @@ func initHeader() {
 }
 
 func isMeshSync(mesh bool) {
-	if (mesh == true) {
+	if mesh {
 		fmt.Println(utils.SetBlue("[SCAN]") + " Global mesh synchronization: ACTIVE signification\n");
 	} else {
 		fmt.Println()

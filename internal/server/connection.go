@@ -28,7 +28,7 @@ func readData(data *bufio.Reader, client net.Conn) (string, error) {
 			return line, nil
 		}
 	}
-	return "", errors.New("Invalif read or lost connection")
+	return "", errors.New("invalid read or lost connection")
 }
 
 func fetchClientData(data *bufio.Reader, client net.Conn, dataAuth utils.Auth) {
@@ -39,7 +39,11 @@ func fetchClientData(data *bufio.Reader, client net.Conn, dataAuth utils.Auth) {
 			break
 		}
 
-		json.Unmarshal([]byte(response), &dataAuth)
+		err = json.Unmarshal([]byte(response), &dataAuth)
+		if err != nil {
+			log.Fatal(utils.SetRed("ERROR"), " fatal reading json")
+		}
+
 		fmt.Println(utils.SetBlue("[INFO] ") + dataAuth.Identity + " assign -> " + client.RemoteAddr().String())
 	}
 }
@@ -49,7 +53,11 @@ func handleConnection(client net.Conn) {
 	var dataAuth utils.Auth
 
 	fmt.Println(utils.SetBlue("[INFO]") + " New agent handshake " + client.RemoteAddr().String())
-	defer client.Close()
+	defer func() {
+		if err := client.Close(); err != nil {
+			log.Printf(utils.SetRed("[ERROR]") + " failed to close connection: %v", err)
+		}
+	}()
 
 	fetchClientData(data, client, dataAuth)
 }
