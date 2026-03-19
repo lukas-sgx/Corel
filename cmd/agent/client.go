@@ -32,7 +32,7 @@ func clientConnect(cmd *cobra.Command, args []string) {
 		Secrets: secrets,
 	}
 
-	if secrets == false {
+	if !secrets {
 		initHeader(agentInfo)
 	}
 	agent.Peer(agentInfo)
