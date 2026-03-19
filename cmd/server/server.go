@@ -7,6 +7,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/lukas-sgx/corel/internal/server"
+	"github.com/lukas-sgx/corel/pkg/utils"
 )
 
 var (
@@ -29,7 +30,11 @@ func serverRun(cmd *cobra.Command, args []string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer tcpListen.Close()
+	defer func() {
+		if err := tcpListen.Close(); err != nil {
+			log.Printf(utils.SetRed("[ERROR]") + " failed to close connection: %v", err)
+		}
+	}()
 
 	initHeader()
 	isMeshSync(meshSync)
