@@ -53,7 +53,7 @@ func launchHandshake(tcp net.Conn, data Agent) {
 }
 
 func Peer(agent Agent) {
-	tcpConn, err := net.Dial("tcp4", fmt.Sprintf("%s:%d", agent.RemoteAddr, agent.RemotePort))
+	tcpConn, err := net.Dial("tcp4", net.JoinHostPort(agent.RemoteAddr, fmt.Sprintf("%d", agent.RemotePort)))
 
 	if err != nil {
 		log.Fatal(err)
