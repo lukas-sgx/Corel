@@ -2,20 +2,36 @@ package server
 
 import (
 	"bufio"
-	"testing"
-	"net"
 	"fmt"
+	"log"
+	"net"
+	"testing"
 )
 
 func TestReadData(t *testing.T) {
 	server, client := net.Pipe()
-	defer server.Close()
-	defer client.Close()
+	defer func () {
+		if server.Close() != nil {
+			log.Fatal("Error on close pipe")
+		}
+	}()
+	defer func () {
+		if client.Close() != nil {
+			log.Fatal("Error on close pipe")
+		}
+	}()
 
 	go func() {
-		fmt.Fprint(client, "KEEPALIVE\n")
-		fmt.Fprint(client, "KEEPALIVE\n")
-		fmt.Fprint(client, "Hello World\n")
+		for range 2 {
+			_, err := fmt.Fprint(client, "KEEPALIVE\n")
+			if err != nil {
+				log.Fatal("Failed to assign value")
+			}
+		}
+		_, err := fmt.Fprint(client, "Hello World\n")
+		if err != nil {
+			log.Fatal("Failed to assign value")
+		}
 	}()
 
 	reader := bufio.NewReader(server)
