@@ -80,7 +80,6 @@ jobs:
         retention-days: 7
 
   Deploy:
-    needs: Build-Release
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -88,10 +87,14 @@ jobs:
       actions: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Log in to the Container registry
+      # 1. Mandatory for long-term stability with v7+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GHCR
         uses: docker/login-action@v4
         with:
           registry: ghcr.io
@@ -104,7 +107,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
 
-      - name: Build and push Docker image
+      - name: Build and push
         uses: docker/build-push-action@v7
         with:
           context: .
@@ -112,5 +115,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=app-cache
+          cache-to: type=gha,mode=max,scope=app-cache
+          provenance: true 
+          sbom: true
