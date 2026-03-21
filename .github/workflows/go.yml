@@ -80,6 +80,7 @@ jobs:
         retention-days: 7
 
   Deploy:
+    needs: Build-Release
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     permissions:
