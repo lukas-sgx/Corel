@@ -44,7 +44,8 @@ jobs:
       - name: govulncheck
         uses: golang/govulncheck-action@v1
         with:
-          version: latest
+          go-version-input: '1.24'
+          repo-checkout: false
 
       - name: Run tests
         run: |
