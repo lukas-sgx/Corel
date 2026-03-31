@@ -20,7 +20,7 @@ type Agent struct {
 }
 
 func keepAlive(tcp net.Conn) {
-	ticker := time.NewTicker(600 * time.Second)
+	ticker := time.NewTicker(30 * time.Second)
 	defer ticker.Stop()
 
 	for {
